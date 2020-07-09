@@ -1,0 +1,13 @@
+#app1 {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#app1 > .btns {
+    display: flex;
+}
+
+#app1 > .btns > button {
+    flex: 1;
+}

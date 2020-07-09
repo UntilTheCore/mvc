@@ -1,0 +1,15 @@
+.page {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.page > section {
+    width: 50vw;
+    height: 50vh;
+    border:1px solid #ccc;
+}
+
+body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}

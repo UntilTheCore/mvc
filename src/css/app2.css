@@ -1,0 +1,24 @@
+#app2 {
+    display: flex;
+    flex-direction: column;
+}
+
+#app2 > .tabs {
+    display: flex;
+}
+
+.tabs > li {
+    flex: 1;
+}
+
+.tabs > li.selected {
+    background-color: #d9b764;
+}
+
+.contents > li {
+    display: none;
+}
+
+.contents > li.active {
+    display: block;
+}
