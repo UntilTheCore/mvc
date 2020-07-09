@@ -7,18 +7,18 @@
     display: flex;
 }
 
-.tabs > li {
+#app2 .tabs > li {
     flex: 1;
 }
 
-.tabs > li.selected {
+#app2 .tabs > li.selected {
     background-color: #d9b764;
 }
 
-.contents > li {
+#app2 .contents > li {
     display: none;
 }
 
-.contents > li.active {
+#app2 .contents > li.active {
     display: block;
 }

@@ -1,7 +1,10 @@
 import "./css/reset.css"
 import "./css/global.css"
 
-import './js/app1'
-import './js/app2'
+import x from './js/app1'
+import y from './js/app2'
 import './js/app3'
 import './js/app4'
+
+x.init('#app1')
+y.init('#app2')

@@ -1,6 +1,14 @@
 import '../css/app3.css'
 import $ from 'jquery'
 
+const v = `
+    <section id="app3">
+        <div class="square"></div>
+    </section>
+`
+
+$(v).appendTo($('body > .page'))
+
 // 默认在左边
 let isActive = parseInt(localStorage.getItem('app3'))
 isActive = isActive ? isActive : 0

@@ -1,15 +1,72 @@
 import '../css/app2.css'
 import $ from 'jquery'
 
-// 默认显示tab1
-let showTabIndex = localStorage.getItem('tabIndex')
-showTabIndex = showTabIndex ? showTabIndex : 0
-$('.tabs > li').removeClass('selected').eq(showTabIndex).addClass('selected')
-$('.contents > li').removeClass('active').eq(showTabIndex).addClass('active')
+const eventBus = $(window)
 
-$('#app2 > .tabs').on('click','li', e => {
-    const index = $(e.currentTarget).index()
-    $('.tabs > li').removeClass('selected').eq(index).addClass('selected')
-    $('.contents > li').removeClass('active').eq(index).addClass('active')
-    localStorage.setItem('tabIndex',index)
-})
+const localKey = 'app2.index'
+const m = {
+    data: {
+        index: parseInt(localStorage.getItem(localKey)) || 0
+    },
+    create() {},
+    delete() {},
+    update(data) {
+        Object.assign(m.data, data)
+        eventBus.trigger('m:updated')
+        localStorage.setItem('app2.index', m.data.index)
+    },
+    get() {}
+}
+
+const v = {
+    el: null,
+    html: (index) => {
+        return `
+      <ul class="tabs">
+        <li class="${index === 0 ? 'selected' : ''}" data-index="0"><span>tab1</span></li>
+        <li class="${index === 1 ? 'selected' : ''}" data-index="1"><span>tab2</span></li>
+      </ul>
+      <ul class="contents">
+        <li class="${index === 0 ? 'active' : ''}">内容1</li>
+        <li class="${index === 1 ? 'active' : ''}">内容2</li>
+      </ul>
+`
+    },
+    init(container) {
+        v.el = $(container)
+    },
+    render(index) {
+        if (v.el.children.length !== 0) v.el.empty()
+        $(v.html(index)).appendTo(v.el)
+    }
+}
+
+const c = {
+    init(container) {
+        v.init(container)
+        v.render(m.data.index) // view = render(data)
+        c.autoBindEvents()
+        eventBus.on('m:updated', () => {
+            v.render(m.data.index)
+        })
+    },
+    events: {
+        'click .tabs li': 'x',
+    },
+    x(e) {
+        const index = parseInt(e.currentTarget.dataset.index)
+        m.update({index: index})
+    },
+    autoBindEvents() {
+        for (let key in c.events) {
+            const value = c[c.events[key]]
+            const spaceIndex = key.indexOf(' ')
+            const part1 = key.slice(0, spaceIndex)
+            const part2 = key.slice(spaceIndex + 1)
+            v.el.on(part1, part2, value)
+        }
+    }
+}
+
+
+export default c

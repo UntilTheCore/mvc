@@ -1,7 +1,15 @@
 import '../css/app4.css'
 import $ from 'jquery'
+
+const v = `
+    <section id="app4">
+        <div class="circle"></div>
+    </section>
+`
+
+$(v).appendTo($('body > .page'))
+
 $('.circle').on('mouseenter', e => {
-    console.log(1)
     $('.circle').addClass('active')
 })
 
